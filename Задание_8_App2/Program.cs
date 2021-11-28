@@ -12,71 +12,37 @@ namespace Задание_8_App2
         //Программно создайте текстовый файл и запишите в него 10 случайных чисел. Затем программно откройте созданный файл, рассчитайте сумму чисел в нем, ответ выведите на консоль.
         static void Main(string[] args)
         {
-            string path = @"C:\Users\gorshkov\Desktop\ИТМО\Задание_8\Test.txt";
-            if (!File.Exists(path))
+            Console.WriteLine("Введите директорию любой папки на своем компе, в которой будет создан файл:");
+            string pathCatalogue = Console.ReadLine();
+            string fileName = "Test.txt";
+            string path = pathCatalogue + "\\" + fileName;
+            int a = -100;
+            int b = 100;
+            int n = 10;
+            Random random = new Random();
+            int[] array = new int[n];
+            using (StreamWriter sw = new StreamWriter(path))
             {
-                File.Create(path);
-            }
-            using (StreamWriter sw = new StreamWriter(path, false))
-            {
-
-            }    
-            /*{
-                Random random = new Random();
-                array [i] = random.Next();
                 for (int i = 0; i < 10; i++)
                 {
-                    sw.Write("Старт программы");
+                    array[i] = random.Next(a, b);
+                    sw.Write("{0} ", array[i]);
                 }
-                sw.WriteLine("Старт программы");
-                sw.WriteLine("Ошибка");
             }
-
-
-
-
-            /*string path = "Logs2/Log.txt";
-            using (StreamWriter sw = new StreamWriter(path, true))
-            {
-                sw.WriteLine("Старт программы");
-                sw.WriteLine("Ошибка");
-            }
+            //sum - сумма десяти случайных чисел, записанных в текстовый файл по ссылке.
+            int sum = 0;
             using (StreamReader sr = new StreamReader(path))
             {
-                Console.WriteLine(sr.ReadToEnd());
-            }
-            Console.ReadKey();
-
-            /*if (!File.Exists(path))
-            {
-                File.Create(path);
-            }
-            
-            
-            /*DirectoryInfo directory = new DirectoryInfo(path);
-            if (!directory.Exists)
-            {
-                directory.Create();
-            }
-
-            /*string path = "Logs";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }*/
-
-            /*DriveInfo[] drives = DriveInfo.GetDrives();
-            foreach (DriveInfo d in drives)
-            {
-                Console.WriteLine("Название: {0}", d.Name);
-                if (d.IsReady)
+                string m = sr.ReadToEnd();
+                string[] stringArray = m.Split();
+                for (int i = 0; i < n; i++)
                 {
-                    Console.WriteLine("Объем диска: {0}", d.TotalSize);
-                    Console.WriteLine("Свободно: {0}", d.AvailableFreeSpace);
+                    int d = Convert.ToInt32(stringArray [i]);
+                    sum += d;
                 }
-                Console.WriteLine();
             }
-            Console.ReadKey();*/
+            Console.WriteLine("Сумма десяти случайных чисел, записанных в файле \"Test.txt\" по ссылке: {0}", sum);
+            Console.ReadKey();
         }
     }
 }
